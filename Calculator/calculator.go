@@ -6,9 +6,9 @@ func main() {
 	var num1, num2 int
 	var operation string
 
-	fmt.Printf("Enter Two Numbers")
+	fmt.Printf("Enter Two Numbers \n")
 	fmt.Scan(&num1, &num2)
-	fmt.Printf("Enter the operation")
+	fmt.Printf("Enter the operation \n")
 	fmt.Scan(&operation)
 
 	switch operation {
