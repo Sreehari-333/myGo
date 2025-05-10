@@ -1,21 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func passHundred(ch chan string) {
-
-	ch <- "First Message"
-	ch <- "Second Messaage"
-	ch <- "Third Message"
-
-}
 func main() {
 
-	ch := make(chan string)
+	ch := make(chan int, 3)
 
-	go passHundred(ch)
+	ch <- 1
+	ch <- 2
+	ch <- 3
 
-	fmt.Println(<-ch)
-	fmt.Println(<-ch)
-	fmt.Println(<-ch)
+	close(ch)
+
+	for val := range ch {
+		fmt.Println(val)
+	}
 }
