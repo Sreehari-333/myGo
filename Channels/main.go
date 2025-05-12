@@ -2,19 +2,27 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
 
-	ch := make(chan int, 3)
+	data := make(chan int)
 
-	ch <- 1
-	ch <- 2
-	ch <- 3
+	go func() {
 
-	close(ch)
+		for i := 0; i < 5; i++ {
+			fmt.Println("Data Added :", i)
+			data <- i
+			time.Sleep(time.Second * 1)
+		}
 
-	for val := range ch {
-		fmt.Println(val)
+		close(data)
+	}()
+
+	for val := range data {
+		fmt.Println("Data Used :", val)
+		time.Sleep(time.Second * 2)
 	}
+
 }
