@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	var counter int
 	var mutex sync.Mutex
 	var wg sync.WaitGroup
