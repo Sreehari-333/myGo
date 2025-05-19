@@ -26,7 +26,7 @@ func (s *Stack) pop() int {
 	}
 
 	val := s.top.data
-	s.top.next = s.top
+	s.top = s.top.next
 	return val
 }
 
