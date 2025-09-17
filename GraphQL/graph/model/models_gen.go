@@ -5,20 +5,31 @@ package model
 type Mutation struct {
 }
 
+type NewPost struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	UserID  string `json:"userId"`
+}
+
+type NewUser struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+type Post struct {
+	ID      string `json:"id" gorm:"primaryKey"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	UserID  string `json:"userId"`
+	User    *User  `json:"user" gorm:"foreignKey:UserID;refereces:ID"`
+}
+
 type Query struct {
 }
 
 type User struct {
-	ID    string `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	Name  string
-	Email string
-	Posts []Post `gorm:"foreignKey:UserID"`
-}
-
-type Post struct {
-	ID      string `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	Title   string
-	Content string
-	UserID  string `gorm:"type:uuid"` // foreign key
-	User    User   `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	ID    string  `json:"id" gorm:"primaryKey"`
+	Name  string  `json:"name"`
+	Email string  `json:"email"`
+	Posts []*Post `json:"posts" gorm:"foreignKey:UserID;refereces:ID"`
 }

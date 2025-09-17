@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "/proto";
+
+// Auth Service definition
+service AuthService {
+  rpc GetUserById (GetUserRequest) returns (GetUserResponse);
+}
+
+// Request message
+message GetUserRequest {
+  uint64 user_id = 1;
+}
+
+// Response message
+message GetUserResponse {
+  uint64 user_id = 1;
+  string email = 2;
+  string name = 3;
+  bool exists = 4;
+}

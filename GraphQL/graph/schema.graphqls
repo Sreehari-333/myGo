@@ -1,31 +1,43 @@
-type User{
-  id :ID!
-  name:String!
-  email:String!
+type User {
+  id : ID!
+  name : String!
+  email : String!
   posts :[Post!]!
 }
 
 type Post{
-  id:ID!
-  title:String!
-  content:String!
-  user:User!
+  id : ID!
+  title : String!
+  content : String!
+  user : User!
 }
 
-type Query{
-  users:[User!]!
-  user(id:ID!) : User
-  posts:[Post!]!
-  post(id:ID!) : Post
+input NewUser{
+  name : String!
+  email : String!
 }
+
+input NewPost{
+  title : String!
+  content : String!
+  userId : String!
+}
+
+type Query {
+  users : [User!]!
+  user(id : ID!):User
+
+   posts : [Post!]!
+  post(id : ID!):Post
+}
+
 
 type Mutation{
-  createUser(name : String! , email : String!) : User!
-  updateUser(id:ID! , name : String! , email : String!) : User!
-  deleteUser(id : ID!) : Boolean!
+  createUser(input : NewUser!):User!
+  updateUser(id:ID!, name :String!,email : String!):User!
+  deleteUser(id : ID!):Boolean!
 
-  createPost(title: String!, content: String!, userId: ID!): Post!
-  updatePost(id: ID!, title: String, content: String): Post!
-  deletePost(id: ID!): Boolean!
+   createPost(input : NewPost!):Post!
+  updatePost(id:ID!, title :String!,content : String!):User!
+  deletePost(id : ID!):Boolean!
 }
-

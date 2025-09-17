@@ -9,8 +9,6 @@ exec:
 
   # Only for single-file layout:
   filename: graph/generated/generated.go
-  
-
 
   # Only for follow-schema layout:
   # dir: graph

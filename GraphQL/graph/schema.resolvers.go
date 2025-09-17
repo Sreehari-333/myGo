@@ -14,11 +14,11 @@ import (
 )
 
 // CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, name string, email string) (*model.User, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
 	user := &model.User{
-		ID:    uuid.New().String(),
-		Name:  name,
-		Email: email,
+		ID:    uuid.NewString(),
+		Name:  input.Name,
+		Email: input.Email,
 	}
 
 	if err := r.DB.Create(user).Error; err != nil {
@@ -39,12 +39,12 @@ func (r *mutationResolver) DeleteUser(ctx context.Context, id string) (bool, err
 }
 
 // CreatePost is the resolver for the createPost field.
-func (r *mutationResolver) CreatePost(ctx context.Context, title string, content string, userID string) (*model.Post, error) {
+func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
 	panic(fmt.Errorf("not implemented: CreatePost - createPost"))
 }
 
 // UpdatePost is the resolver for the updatePost field.
-func (r *mutationResolver) UpdatePost(ctx context.Context, id string, title *string, content *string) (*model.Post, error) {
+func (r *mutationResolver) UpdatePost(ctx context.Context, id string, title string, content string) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: UpdatePost - updatePost"))
 }
 
@@ -56,9 +56,11 @@ func (r *mutationResolver) DeletePost(ctx context.Context, id string) (bool, err
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 	var users []*model.User
-	if err := r.DB.Preload("Posts").Find(&users).Error; err != nil {
+
+	if err := r.DB.Find(&users).Error; err != nil {
 		return nil, err
 	}
+
 	return users, nil
 }
 
